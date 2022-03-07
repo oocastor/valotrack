@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Valorant-Tracker by Castor</title>
+        <link href="style.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <p class="logo" onclick="location.href='https:/\/valo.castor-dev.de'">Valotrack</p>
+        <img class="reload" src="icons/refresh.png" onclick="location.reload();">
+        <div id="search" <% if (searched && data != false) { %>style="display: none;" <% } %>>
+            <p>Search for a Valorant-Player.</p>
+            <input id="i" placeholder="Placeholder#0000">
+            <button onclick="if(document.getElementById('i').value)location.href='https:/\/valo.castor-dev.de?user=' + document.getElementById('i').value.replace('#', '&tag=');">Go</button>
+        </div>
+        <div id="main" <% if (!searched || data == false) { %>style="display: none;" <% } %>>
+            <div class="head">
+                <img src="<%=data.cardUrl%>">
+                <h1><%=data.name%> <span>#<%=data.tag%></span></h1>
+            </div>
+            <p class="info">Account Stats</p>
+            <div class="stats">
+                <div class="stats_item">
+                    <p><%=data.lvl%></p>
+                    <h2>Level</h2>
+                </div>
+                <div class="stats_item">
+                    <p><%=data.winrate%>%</p>
+                    <h2>Win Rate</h2>
+                </div>
+                <div class="stats_item">
+                    <p><%=data.tier%></p>
+                    <h2>Rank</h2>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stats_item">
+                    <p><%=data.oKD%></p>
+                    <h2>Overall KD</h2>
+                </div>
+                <div class="stats_item">
+                    <p><%=data.aKD%></p>
+                    <h2>Average KD</h2>
+                </div>
+            </div>
+            <p class="info">Last Matches</p>
+            <p class="info" style="float: right;"><% if(data.maps != undefined) { %> <%=data.maps.length%> <% } %></p>
+            <div class="last_matches">
+                <% if(data.maps != undefined) data.maps.forEach(e => { %>
+                    <div class="match_item">
+                        <div class="map_img">
+                            <img src="icons/<%=e.name.toLowerCase()%>.png">
+                            <div class="fade"></div>
+                        </div>
+                        <div class="map_info">
+                            <h1><%=e.name%></h1>
+                            <h2><%=e.mode%></h2>
+                            <h3><span>K</span> <%=e.k%> <span>D</span> <%=e.d%></h3>
+                            <% if(e.won) { %>
+                                <p style="color: rgb(43, 145, 43);">WIN</p>
+                            <% } else { %>
+                                <p style="color: rgb(245, 94, 94);">LOSE</p>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </body>
+</html>

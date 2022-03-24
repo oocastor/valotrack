@@ -59,10 +59,19 @@ async function getData (user, tag, save = true) {
 }
 
 setInterval(() => {
-    searchedUsers.forEach(e=>getData(e.name, e.tag, false));
+    searchedUsers.forEach(e=>getData(e.name, e.tag, true));
     fs.writeFileSync("data.json", JSON.stringify(searchedUsers));
 }, updateIntervalInHours * 1000 * 60 * 60);
 
 app.listen(7775, () => {
     console.log("Server up and running on Port 7775");
 });
+
+//test run
+if(process.argv.includes("--test")) {
+    data = getData("Innecesari0", "2113", false);
+    setTimeout(() => {
+        console.log(data.name == undefined ? "Cannot fetch data, something is wrong!" : "Fetched Data for: "+data.name+" - Everything is working fine!");
+        process.exit(data.name == undefined ? 1 : 0);
+    }, 5000);
+}

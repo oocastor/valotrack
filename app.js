@@ -41,7 +41,7 @@ async function getData (user, tag, save = true) {
                         if(data.lvl < d.level) data.lvl = d.level;
                         data.ki += d.stats.kills;
                         data.de += d.stats.deaths;
-                        data.kds.push(Math.round((d.stats.kills/d.stats.deaths) * 100) / 100);
+                        data.kds.push(Math.round((d.stats.kills/(d.stats.deaths == 0 ? 1 : d.stats.deaths)) * 100) / 100);
                         m.push({id: e.metadata.matchid, name: e.metadata.map, tier: d.currenttier_patched, mode: e.metadata.mode, k: d.stats.kills, d: d.stats.deaths, won: d.team === "Red" && e.teams.red.has_won || d.team === "Blue" && !e.teams.red.has_won});
                     }
                 });
@@ -51,7 +51,7 @@ async function getData (user, tag, save = true) {
             data.maps = m.concat(data.maps);
             if(!searchedUsers.find(f=>f.name === user && f.tag === tag)) searchedUsers.push(data);
             if(save) fs.writeFileSync("data.json", JSON.stringify(searchedUsers));
-            return {name: user, tag: tag, tier: data.maps.filter(f=>f.tier !== "Unrated")[0] !== undefined ? data.maps.filter(f=>f.tier !== "Unrated")[0].tier : "-", cardUrl: data.cardUrl, lvl: data.lvl, winrate: Math.round(data.maps.filter(f=>f.won).length/data.maps.length*100), oKD: (Math.round((data.ki/data.de) * 100) / 100), aKD: (Math.round((q/data.kds.length) * 100) / 100), maps: data.maps};
+            return {name: user, tag: tag, tier: data.maps.filter(f=>f.tier !== "Unrated")[0] !== undefined ? data.maps.filter(f=>f.tier !== "Unrated")[0].tier : "-", cardUrl: data.cardUrl, lvl: data.lvl, winrate: !isNaN(data.maps.filter(f=>f.won).length/data.maps.length*100) ? Math.round(data.maps.filter(f=>f.won).length/data.maps.length*100) : 0, oKD: (Math.round((data.ki/(data.de == 0 ? 1 : data.de)) * 100) / 100), aKD: (Math.round((q/data.kds.length) * 100) / 100), maps: data.maps};
         }
     } catch (e) {
         console.log(e);

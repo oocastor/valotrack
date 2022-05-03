@@ -2,17 +2,26 @@
 
 <html>
     <head>
-        <title>Valorant-Tracker by Castor</title>
+        <title>Valotrack</title>
         <link href="style.css" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <meta name="description" content="An easy to use Valorant Tracker.">
+        <meta name="keywords" content="Valorant, Tracker, easy, Castor">
+        <meta name="author" content="Castor">
     </head>
     <body>
-        <p class="logo" onclick="location.href='https:/\/valo.castor-dev.de'">Valotrack</p>
-        <img class="reload" src="icons/refresh.png" onclick="location.reload();">
+        <p class="logo" onclick="location.href='/'">Valotrack</p>
+        <img class="reload" src="icons/refresh.png" onclick="location.reload();" <% if (!searched || data == false) { %>style="display: none;" <% } %>>
         <div id="search" <% if (searched && data != false) { %>style="display: none;" <% } %>>
-            <p>Search for a Valorant-Player.</p>
-            <input id="i" placeholder="Placeholder#0000">
-            <button onclick="if(document.getElementById('i').value)location.href='https:/\/valo.castor-dev.de?user=' + document.getElementById('i').value.replace('#', '&tag=');">Go</button>
+            <div class="header">
+                <h2>Search</h2>
+            </div>
+            <p>Enter the name and tag of a <span>Valorant-Player</span> to view his stats and match history.</p>
+            <div class="input">
+                <input id="i" placeholder="Placeholder#0000">
+                <button onclick="if(document.getElementById('i').value)location.href='/?user=' + document.getElementById('i').value.replace('#', '&tag=');">Go</button>
+            </div>
         </div>
         <div id="main" <% if (!searched || data == false) { %>style="display: none;" <% } %>>
             <div class="head">
@@ -66,6 +75,9 @@
                     </div>
                 <% }); %>
             </div>
+        </div>
+        <div class="footer">
+            <p>@made by <a href="https://www.instagram.com/oocastor">oocastor</a></p>
         </div>
     </body>
 </html>

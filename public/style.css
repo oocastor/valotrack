@@ -1,254 +1,324 @@
-@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap");
 * {
-    padding: 0;
-    margin: 0;
-    user-select: none;
-    -webkit-user-drag: none;
+  padding: 0;
+  margin: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-user-drag: none;
 }
 
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 html, body {
-    height: 100%;
-    width: 100%;
-    background-color: rgb(36, 35, 37);
-    display: grid;
-    place-items: center;
-    position: relative;
-    font-family: sans-serif;
-    color: white;
+  height: 100%;
+  width: 100%;
+  background-color: #242325;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  position: relative;
+  font-family: sans-serif;
+  color: white;
 }
 
 .logo {
-    font-size: 2.2rem;
-    font-family: 'Grand Hotel', cursive;
-    margin: 22px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: inline-block;
+  font-size: 2.2rem;
+  font-family: 'Grand Hotel', cursive;
+  margin: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
 }
 
 .reload {
-    height: 34px;
-    width: 34px;
-    filter: invert(1);
-    margin: 22px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: inline-block;
+  height: 34px;
+  width: 34px;
+  -webkit-filter: invert(1);
+          filter: invert(1);
+  margin: 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+}
+
+#search {
+  width: 90%;
+  max-width: 420px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #2b2a2a;
+  border: solid 2px #525252;
+  position: relative;
+}
+
+#search .header {
+  width: 100%;
+  background-color: #525252;
+}
+
+#search .header h2 {
+  padding: 5px 8px;
+  font-weight: 600;
+  font-size: 1.4rem;
 }
 
 #search p {
-    margin: 10px 0;
+  width: 95%;
+  padding: 0 8px;
+  margin: 15px auto;
 }
 
-#search input {
-    height: 30px;
-    width: 250px;
-    background-color: rgb(82, 82, 82);
-    border: none;
-    outline: none;
-    color: white;
-    padding-left: 5px;
+#search p span {
+  font-weight: 600;
+  color: #c94b4b;
 }
 
-#search button {
-    height: 29px;
-    width: 50px;
-    border: none;
-    background-color: rgb(165, 165, 165);
-    color: white;
-    transition: all 50ms;
+#search .input {
+  width: 95%;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 auto 15px;
 }
 
-#search button:hover {
-    background-color: rgb(136, 135, 135);
+#search .input input {
+  height: 30px;
+  width: 70%;
+  background-color: #525252;
+  border: none;
+  outline: none;
+  color: white;
+  padding-left: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
-#search button:active {
-    transform: scale(0.95);
+#search .input button {
+  height: 30px;
+  width: 28%;
+  background-color: #bf3b3b;
+  border: solid 2px #c94b4b;
+  color: white;
+  -webkit-transition: all 50ms;
+  transition: all 50ms;
+  margin: 0 0 0 auto;
+}
+
+#search .input button:hover {
+  background-color: #a53737;
+  border: solid 2px #be4d4d;
+}
+
+#search .input button:active {
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
 }
 
 #main {
-    min-width: 320px;
-    max-width: 650px;
-    width: 90%;
-    height: auto;
-    margin: 0 auto;
+  min-width: 320px;
+  max-width: 650px;
+  width: 90%;
+  height: auto;
+  margin: 80px auto 60px;
 }
 
 .info {
-    margin: 10px 0;
-    padding: 8px 5px;
-    display: inline-block;
+  margin: 10px 0;
+  padding: 8px 5px;
+  display: inline-block;
 }
 
 .head {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .head img {
-    height: 120px;
-    width: 120px;
-    border: solid 5px rgb(82, 82, 82);
-    margin: 0 5px;
+  height: 120px;
+  width: 120px;
+  border: solid 5px #525252;
+  margin: 0 5px;
 }
 
 .head h1 {
-    font-size: 1.8rem;
-    margin: 0 auto;
-    padding: 15px;
-    display: inline-block;
+  font-size: 1.8rem;
+  margin: 0 auto;
+  padding: 15px;
+  display: inline-block;
 }
 
 .head span {
-    opacity: 0.2;
+  opacity: 0.2;
 }
 
 .stats {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .stats_item {
-    height: 70px;
-    flex: 1 1 120px;
-    text-align: center;
-    background-color: rgb(43, 42, 42);
-    border: solid 3px rgb(82, 82, 82);
-    margin: 5px;
+  height: 70px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 120px;
+          flex: 1 1 120px;
+  text-align: center;
+  background-color: #2b2a2a;
+  border: solid 3px #525252;
+  margin: 5px;
 }
 
 .stats_item p {
-    font-size: 1.5rem;
-    margin: 10px 0 5px;
+  font-size: 1.5rem;
+  margin: 10px 0 5px;
 }
 
 .stats_item h2 {
-    font-size: 0.8rem;
-    opacity: 0.7;
-    font-weight: normal;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  font-weight: normal;
 }
 
 .last_matches {
-    position: relative;
-    max-height: 360px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+  position: relative;
+  max-height: 360px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .match_item {
-    width: 98.5%;
-    height: 70px;
-    position: relative;
-    background-color: rgb(43, 42, 42);
-    border: solid 3px rgb(82, 82, 82);
-    display: flex;
-    margin: 0 0 8px;
+  width: 98.5%;
+  height: 70px;
+  position: relative;
+  background-color: #2b2a2a;
+  border: solid 3px #525252;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 0 8px;
 }
 
 .map_img {
-    width: 35%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
+  width: 35%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 .map_img img {
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 .fade {
-    height: 100%;
-    width: 20px;
-    background: rgb(43,42,42);
-    background: linear-gradient(90deg, rgba(43,42,42,0) 0%, rgba(43,42,42,1) 100%);
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 10;
+  height: 100%;
+  width: 20px;
+  background: #2b2a2a;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(43, 42, 42, 0)), to(#2b2a2a));
+  background: linear-gradient(90deg, rgba(43, 42, 42, 0) 0%, #2b2a2a 100%);
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
 }
 
 .map_info {
-    width: 70%;
-    position: relative;
+  width: 70%;
+  position: relative;
 }
 
 .map_info h1 {
-    font-size: 1.25rem;
-    position: absolute;
-    top: 10px;
-    left: 14px;
+  font-size: 1.25rem;
+  position: absolute;
+  top: 10px;
+  left: 14px;
 }
 
 .map_info h2 {
-    font-size: 1rem;
-    position: absolute;
-    top: 40px;
-    left: 14px;
-    opacity: 0.5;
-    font-weight: normal;
+  font-size: 1rem;
+  position: absolute;
+  top: 40px;
+  left: 14px;
+  opacity: 0.5;
+  font-weight: normal;
 }
 
 .map_info h3 {
-    font-size: 1rem;
-    position: absolute;
-    top: 25px;
-    left: 150px;
-    font-weight: normal;
+  font-size: 1rem;
+  position: absolute;
+  top: 25px;
+  left: 150px;
+  font-weight: normal;
 }
 
 .map_info span {
-    opacity: 0.4;
-    margin: 0 2px;
+  opacity: 0.4;
+  margin: 0 2px;
 }
 
 .map_info p {
-    font-size: 1rem;
-    position: absolute;
-    top: 25px;
-    right: 15px;
-    font-weight: bold;
+  font-size: 1rem;
+  position: absolute;
+  top: 25px;
+  right: 15px;
+  font-weight: bold;
 }
 
-@media screen and (max-height: 1000px) {
-    html, body {
-        display: block;
-    }
-    #search {
-        display: inline-block;
-        width: 310px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-    #search input {
-        height: 29px;
-    }
-    .logo {
-        position: relative;
-    }
+.footer {
+  position: absolute;
+  bottom: 20px;
+}
+
+.footer p, .footer a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  text-underline-offset: 2px;
+  font-size: 0.9rem;
+}
+
+.footer a:hover {
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 500px) {
-    .map_info {
-        width: 100%;
-    }
-    .map_img {
-        display: none;
-    }
+  .map_info {
+    width: 100%;
+  }
+  .map_img {
+    display: none;
+  }
 }
+/*# sourceMappingURL=style.css.map */

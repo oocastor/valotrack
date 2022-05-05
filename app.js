@@ -35,37 +35,65 @@ app.get("/admin", (req, res) => {
     res.render("admin/admin.ejs");
 });
 
-async function getData (user, tag, byUser, save = true) {
+async function getData (name, tag, byUser, save = true) {
+    userData = await getRank(name, tag);
+    if(userData) {
+        search = searchedUsers.find(f=>f.name === userData.name && f.tag === userData.tag);
+        if(search != undefined) obj = search;
+        else obj = {date: "", name: userData.name, tag: userData.tag, cardUrl: "", lvl: 0, ki: 0, de: 0, kds: [], kdsSum: 0, maps: []};
+        obj = await getMatches(obj);
+        console.log(obj);
+        if(obj != false) {
+            if(byUser) obj.date = moment().format("YYYY-MM-DD");
+            if(!searchedUsers.find(f=>f.name === userData.name && f.tag === userData.tag)) searchedUsers.push(obj);
+            if(save) fs.writeFileSync("data.json", JSON.stringify(searchedUsers));
+            return {name: userData.name, tag: userData.tag, tier: userData.rank, cardUrl: obj.cardUrl, lvl: obj.lvl, winrate: !isNaN(obj.maps.filter(f=>f.won).length/obj.maps.length*100) ? Math.round(obj.maps.filter(f=>f.won).length/obj.maps.length*100) : 0, oKD: (Math.round((obj.ki/(obj.de == 0 ? 1 : obj.de)) * 100) / 100), aKD: (Math.round((obj.kdsSum/obj.kds.length) * 100) / 100), maps: obj.maps};
+        }
+    }        
+}
+
+async function getRank (name, tag) {
     try {
-        const response = await fetch(`https://api.henrikdev.xyz/valorant/v3/matches/eu/${user}/${tag}?size=99`, {
+        const response = await fetch(`https://api.henrikdev.xyz/valorant/v1/mmr-history/eu/${name}/${tag}`, {
             method: 'GET',
             headers: {}
         });
         const res = await response.json();
-        if(res.status != undefined && res.status == "200") {
-            if(searchedUsers.find(f=>f.name === user && f.tag === tag)) data = searchedUsers.find(f=>f.name === user && f.tag === tag)
-            else data = {date: "", name: user, tag: tag, cardUrl: "", lvl: 0, ki: 0, de: 0, kds: [], maps: []};
+        if(res.status == "200") return {name: res.name, tag: res.tag, rank: (res.data[0].currenttierpatched == undefined ? "none" : res.data[0].currenttierpatched)};
+        else return false
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+async function getMatches(obj) {
+    try {
+        const response = await fetch(`https://api.henrikdev.xyz/valorant/v3/matches/eu/${obj.name}/${obj.tag}?size=99`, {
+            method: 'GET',
+            headers: {}
+        });
+        const res = await response.json();
+        if(res.status == "200") {
             m = [];
             res.data.forEach(e => {
                 e.players.all_players.forEach(d => {
-                    if(d.name === user && !data.maps.find(q=>q.id===e.metadata.matchid)) {
-                        if(d.assets.card.small !== data.cardUrl) data.cardUrl = d.assets.card.small;
-                        if(data.lvl < d.level) data.lvl = d.level;
-                        data.ki += d.stats.kills;
-                        data.de += d.stats.deaths;
-                        data.kds.push(Math.round((d.stats.kills/(d.stats.deaths == 0 ? 1 : d.stats.deaths)) * 100) / 100);
-                        m.push({id: e.metadata.matchid, name: e.metadata.map, tier: d.currenttier_patched, mode: e.metadata.mode, k: d.stats.kills, d: d.stats.deaths, won: d.team === "Red" && e.teams.red.has_won || d.team === "Blue" && !e.teams.red.has_won});
+                    if(d.name === obj.name && !obj.maps.find(q=>q.id===e.metadata.matchid)) {
+                        //change card url and level by newest match
+                        if(res.data.indexOf(e) == 0) {
+                            obj.cardUrl = d.assets.card.small;
+                            obj.lvl = d.level;
+                        }
+                        obj.ki += d.stats.kills;
+                        obj.de += d.stats.deaths;
+                        obj.kds.push(Math.round((d.stats.kills/(d.stats.deaths == 0 ? 1 : d.stats.deaths)) * 100) / 100);
+                        m.push({id: e.metadata.matchid, name: e.metadata.map, mode: e.metadata.mode, k: d.stats.kills, d: d.stats.deaths, won: d.team === "Red" && e.teams.red.has_won || d.team === "Blue" && !e.teams.red.has_won});
                     }
                 });
             });
-            q = 0;
-            data.kds.forEach(e => q += e);
-            data.maps = m.concat(data.maps);
-            if(byUser) data.date = moment().format("YYYY-MM-DD");
-            if(!searchedUsers.find(f=>f.name === user && f.tag === tag)) searchedUsers.push(data);
-            if(save) fs.writeFileSync("data.json", JSON.stringify(searchedUsers));
-            return {name: user, tag: tag, tier: data.maps.filter(f=>f.tier !== "Unrated")[0] !== undefined ? data.maps.filter(f=>f.tier !== "Unrated")[0].tier : "-", cardUrl: data.cardUrl, lvl: data.lvl, winrate: !isNaN(data.maps.filter(f=>f.won).length/data.maps.length*100) ? Math.round(data.maps.filter(f=>f.won).length/data.maps.length*100) : 0, oKD: (Math.round((data.ki/(data.de == 0 ? 1 : data.de)) * 100) / 100), aKD: (Math.round((q/data.kds.length) * 100) / 100), maps: data.maps};
-        }
+            obj.kdsSum = obj.kds.reduce((a,b) => a+b,0);
+            obj.maps = m.concat(obj.maps);
+            return obj;
+        } else return false;
     } catch (e) {
         console.log(e);
     }
@@ -87,4 +115,10 @@ if(process.argv.includes("--test")) {
         console.log(data.name == undefined ? "Cannot fetch data, something is wrong!" : "Fetched Data for: "+data.name+" - Everything is working fine!");
         process.exit(data.name == undefined ? 1 : 0);
     }, 5000);
+}
+
+function fixList () {
+    searchedUsers.forEach(e => {
+        e.name = e.name.toLowerCase();
+    });
 }

@@ -209,10 +209,18 @@ html, body {
 #main .item h2 {
   font-size: 1rem;
   margin: 0 0 0 10px;
+  -webkit-user-select: all;
+     -moz-user-select: all;
+      -ms-user-select: all;
+          user-select: all;
 }
 
 #main .item h2 span {
   color: rgba(255, 255, 255, 0.6);
+  -webkit-user-select: all;
+     -moz-user-select: all;
+      -ms-user-select: all;
+          user-select: all;
 }
 
 #main .item p {

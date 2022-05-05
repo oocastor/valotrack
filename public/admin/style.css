@@ -1,0 +1,223 @@
+@import url("https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-user-drag: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: #242325;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  position: relative;
+  font-family: sans-serif;
+  color: white;
+}
+
+.logo {
+  font-size: 2.2rem;
+  font-family: 'Grand Hotel', cursive;
+  margin: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+}
+
+.reload {
+  height: 34px;
+  width: 34px;
+  -webkit-filter: invert(1);
+          filter: invert(1);
+  margin: 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+}
+
+#search {
+  width: 90%;
+  max-width: 420px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #2b2a2a;
+  border: solid 2px #525252;
+  position: relative;
+}
+
+#search .header {
+  width: 100%;
+  background-color: #525252;
+}
+
+#search .header h2 {
+  padding: 5px 8px;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+#search p {
+  width: 95%;
+  padding: 0 8px;
+  margin: 15px auto;
+}
+
+#search p span {
+  font-weight: 600;
+  color: #c94b4b;
+}
+
+#search .input {
+  width: 95%;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 auto 15px;
+}
+
+#search .input input {
+  height: 30px;
+  width: 70%;
+  background-color: #525252;
+  border: none;
+  outline: none;
+  color: white;
+  padding-left: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#search .input button {
+  height: 30px;
+  width: 28%;
+  background-color: #bf3b3b;
+  border: solid 2px #c94b4b;
+  color: white;
+  -webkit-transition: all 50ms;
+  transition: all 50ms;
+  margin: 0 0 0 auto;
+}
+
+#search .input button:hover {
+  background-color: #a53737;
+  border: solid 2px #be4d4d;
+}
+
+#search .input button:active {
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
+}
+
+.footer {
+  position: absolute;
+  bottom: 20px;
+}
+
+.footer p, .footer a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  text-underline-offset: 2px;
+  font-size: 0.9rem;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+#main {
+  width: 90%;
+  max-width: 420px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #2b2a2a;
+  border: solid 2px #525252;
+  position: relative;
+}
+
+#main .header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 36px;
+  width: 100%;
+  background-color: #525252;
+}
+
+#main .header h2 {
+  padding: 5px 8px;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+#main .header img {
+  height: 22px;
+  -webkit-filter: invert(1);
+          filter: invert(1);
+  margin: 0 8px 2px auto;
+}
+
+#main p {
+  margin: 8px 12px;
+  text-align: right;
+}
+
+#main .list {
+  width: 95%;
+  position: relative;
+  margin: 0 auto 10px;
+}
+
+#main .item {
+  height: 30px;
+  width: 100%;
+  background-color: #444444;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 4px 0 0 0;
+}
+
+#main .item h2 {
+  font-size: 1rem;
+  margin: 0 0 0 10px;
+}
+
+#main .item h2 span {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+#main .item p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 10px 0 auto;
+}
+/*# sourceMappingURL=style.css.map */

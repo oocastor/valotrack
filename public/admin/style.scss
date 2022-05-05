@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(36, 35, 37);
+    display: grid;
+    place-items: center;
+    position: relative;
+    font-family: sans-serif;
+    color: white;
+}
+
+.logo {
+    font-size: 2.2rem;
+    font-family: 'Grand Hotel', cursive;
+    margin: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+}
+
+.reload {
+    height: 34px;
+    width: 34px;
+    filter: invert(1);
+    margin: 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-block;
+}
+
+#search {
+    width: 90%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(43, 42, 42);
+    border: solid 2px rgb(82, 82, 82);
+    position: relative;
+
+    .header {
+        width: 100%;
+        background-color: rgb(82, 82, 82);
+
+        h2 {
+            padding: 5px 8px;
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+    }
+
+    p {
+        width: 95%;
+        padding: 0 8px;
+        margin: 15px auto;
+
+        span {
+            font-weight: 600;
+            color: rgb(201, 75, 75);
+        }
+    }
+
+    .input {
+        width: 95%;
+        position: relative;
+        display: flex;
+        margin: 0 auto 15px;
+
+        input {
+            height: 30px;
+            width: 70%;
+            background-color: rgb(82, 82, 82);
+            border: none;
+            outline: none;
+            color: white;
+            padding-left: 5px;
+            box-sizing: border-box;
+        }
+    
+        button {
+            height: 30px;
+            width: 28%;
+            background-color: rgb(191, 59, 59);
+            border: solid 2px rgb(201, 75, 75);
+            color: white;
+            transition: all 50ms;
+            margin: 0 0 0 auto;
+    
+            &:hover {
+                background-color: rgb(165, 55, 55);
+                border: solid 2px rgb(190, 77, 77);
+            }
+    
+            &:active {
+                transform: scale(0.95);
+            }
+        }
+    }
+}
+
+.footer {
+    position: absolute;
+    bottom: 20px;
+
+    p,a {
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        text-underline-offset: 2px;
+        font-size: 0.9rem;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+}
+
+#main {
+    width: 90%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(43, 42, 42);
+    border: solid 2px rgb(82, 82, 82);
+    position: relative;
+
+    .header {
+        display: flex;
+        align-items: center;
+        height: 36px;
+        width: 100%;
+        background-color: rgb(82, 82, 82);
+
+        h2 {
+            padding: 5px 8px;
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+
+        img {
+            height: 22px;
+            filter: invert(1);
+            margin: 0 8px 2px auto;
+        }
+    }
+
+    p {
+        margin: 8px 12px;
+        text-align: right;
+    }
+
+    .list {
+        width: 95%;
+        position: relative;
+        margin: 0 auto 10px;
+    }
+
+    .item {
+        height: 30px;
+        width: 100%;
+        background-color: rgb(68, 68, 68);
+        display: flex;
+        align-items: center;
+        margin: 4px 0 0 0;
+
+        h2 {
+            font-size: 1rem;
+            margin: 0 0 0 10px;
+
+            span {
+                color: rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 0 10px 0 auto;
+        }
+    }
+}

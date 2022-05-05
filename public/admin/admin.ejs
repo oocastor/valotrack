@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Valotrack</title>
+        <link href="style.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <meta name="description" content="An easy to use Valorant Tracker.">
+        <meta name="keywords" content="Valorant, Tracker, easy, Castor">
+        <meta name="author" content="Castor">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.0/socket.io.js" integrity="sha512-/xb5+PNOA079FJkngKI2jvID5lyiqdHXaUUcfmzE0X0BdpkgzIWHC59LOG90a2jDcOyRsd1luOr24UCCAG8NNw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </head>
+    <body>
+        <p class="logo" onclick="location.href='/'">Valotrack</p>
+        <div id="search" style="display: flex;">
+            <div class="header">
+                <h2>Login</h2>
+            </div>
+            <p>Enter token to access admin area.</p>
+            <div class="input">
+                <input id="i" type="password">
+                <button onclick="usageReport();">Go</button>
+            </div>
+        </div>
+        <div id="main" style="display: none;">
+            <div class="header">
+                <h2>Report</h2>
+                <img src="/icons/refresh.png" onclick="usageReport();">
+            </div>
+            <p class="list_length">0</p>
+            <div class="list">
+                
+            </div>
+        </div>
+        <div class="footer">
+            <p>@made by <a href="https://www.instagram.com/oocastor">oocastor</a></p>
+        </div>
+        <script src="core.js"></script>
+    </body>
+</html>

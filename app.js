@@ -1,13 +1,17 @@
 const fetch = require('node-fetch');
-const express = require('express');
-const app = express();
 const fs = require('fs');
+const express = require("express");
+const app = express();
+const http = require("http").createServer(app);
+const io = require("socket.io")(http);
+const moment = require("moment");
 
 app.set("views", "public");
 app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/public'));
 
+adminTkn = "temp";
 updateIntervalInHours = 3;
 searchedUsers = [];
 
@@ -16,14 +20,22 @@ if (fs.existsSync("data.json")) {
     searchedUsers = JSON.parse(rawdata);
 }
 
-app.use("/", async (req, res) => {
-    if(req.query.user == undefined || req.query.user == "" || req.query.tag == undefined || req.query.tag == "") res.render("index.ejs", {searched: false, data: {}})
-    else {
-        res.render("index.ejs", {searched: true, data: await getData(req.query.user, req.query.tag) || false});
-    }
+io.on('connection', (socket) => {
+    socket.on("usageReport", (tkn) => {
+        if(tkn === adminTkn) socket.emit("getUsageReport", searchedUsers);
+    })
 });
 
-async function getData (user, tag, save = true) {
+app.get("/", async (req, res) => {
+    if(req.query.user == undefined || req.query.user == "" || req.query.tag == undefined || req.query.tag == "") res.render("index.ejs", {searched: false, data: {}})
+    else res.render("index/index.ejs", {searched: true, data: await getData(req.query.user, req.query.tag, true) || false});
+});
+
+app.get("/admin", (req, res) => {
+    res.render("admin/admin.ejs");
+});
+
+async function getData (user, tag, byUser, save = true) {
     try {
         const response = await fetch(`https://api.henrikdev.xyz/valorant/v3/matches/eu/${user}/${tag}?size=99`, {
             method: 'GET',
@@ -32,7 +44,7 @@ async function getData (user, tag, save = true) {
         const res = await response.json();
         if(res.status != undefined && res.status == "200") {
             if(searchedUsers.find(f=>f.name === user && f.tag === tag)) data = searchedUsers.find(f=>f.name === user && f.tag === tag)
-            else data = {name: user, tag: tag, cardUrl: "", lvl: 0, ki: 0, de: 0, kds: [], maps: []};
+            else data = {date: "", name: user, tag: tag, cardUrl: "", lvl: 0, ki: 0, de: 0, kds: [], maps: []};
             m = [];
             res.data.forEach(e => {
                 e.players.all_players.forEach(d => {
@@ -49,6 +61,7 @@ async function getData (user, tag, save = true) {
             q = 0;
             data.kds.forEach(e => q += e);
             data.maps = m.concat(data.maps);
+            if(byUser) data.date = moment().format("YYYY-MM-DD");
             if(!searchedUsers.find(f=>f.name === user && f.tag === tag)) searchedUsers.push(data);
             if(save) fs.writeFileSync("data.json", JSON.stringify(searchedUsers));
             return {name: user, tag: tag, tier: data.maps.filter(f=>f.tier !== "Unrated")[0] !== undefined ? data.maps.filter(f=>f.tier !== "Unrated")[0].tier : "-", cardUrl: data.cardUrl, lvl: data.lvl, winrate: !isNaN(data.maps.filter(f=>f.won).length/data.maps.length*100) ? Math.round(data.maps.filter(f=>f.won).length/data.maps.length*100) : 0, oKD: (Math.round((data.ki/(data.de == 0 ? 1 : data.de)) * 100) / 100), aKD: (Math.round((q/data.kds.length) * 100) / 100), maps: data.maps};
@@ -59,11 +72,11 @@ async function getData (user, tag, save = true) {
 }
 
 setInterval(() => {
-    searchedUsers.forEach(e=>getData(e.name, e.tag, true));
+    searchedUsers.forEach(e=>getData(e.name, e.tag, false, true));
     fs.writeFileSync("data.json", JSON.stringify(searchedUsers));
 }, updateIntervalInHours * 1000 * 60 * 60);
 
-app.listen(7775, () => {
+http.listen(7775, () => {
     console.log("Server up and running on Port 7775");
 });
 

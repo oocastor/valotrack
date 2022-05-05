@@ -126,6 +126,33 @@ html, body {
           transform: scale(0.95);
 }
 
+#search .attention {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 90%;
+  position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 auto 15px;
+  background-color: #474747;
+  border: solid 2px #5a5959;
+}
+
+#search .attention img {
+  height: 30px;
+  margin: 0 15px;
+  -webkit-filter: invert(1);
+          filter: invert(1);
+}
+
+#search .attention p {
+  font-size: 0.9rem;
+  margin: 8px 15px 8px 0;
+  padding: 0;
+}
+
 #main {
   min-width: 320px;
   max-width: 650px;

@@ -18,6 +18,10 @@
                 <h2>Search</h2>
             </div>
             <p>Enter the name and tag of a <span>Valorant-Player</span> to view his stats and match history.</p>
+            <div class="attention">
+                <img src="icons/alert.png">
+                <p>By using Valotrack you agree that we store and update your player data to provide long term statistics.</p>
+            </div>
             <div class="input">
                 <input id="i" placeholder="Placeholder#0000">
                 <button onclick="if(document.getElementById('i').value)location.href='/?user=' + document.getElementById('i').value.replace('#', '&tag=');">Go</button>

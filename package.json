@@ -4,6 +4,7 @@
   "description": "![alt text](https://cloud.castor-dev.de/public/valotrack.png)",
   "main": "app.js",
   "dependencies": {
+    "dotenv": "^16.0.1",
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "moment": "^2.29.3",

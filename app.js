@@ -3,8 +3,13 @@ const fs = require('fs');
 const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
-const io = require("socket.io")(http);
+const io = require("socket.io")(http, {
+    cors: {
+        origin: [process.env.PROXY]
+    }
+});
 const moment = require("moment");
+require("dotenv").config();
 
 app.set("views", "public");
 app.set('view engine', 'ejs');
@@ -42,7 +47,6 @@ async function getData (name, tag, byUser, save = true) {
         if(search != undefined) obj = search;
         else obj = {date: "", name: userData.name, tag: userData.tag, cardUrl: "", lvl: 0, ki: 0, de: 0, kds: [], kdsSum: 0, maps: []};
         obj = await getMatches(obj);
-        console.log(obj);
         if(obj != false) {
             if(byUser) obj.date = moment().format("YYYY-MM-DD");
             if(!searchedUsers.find(f=>f.name === userData.name && f.tag === userData.tag)) searchedUsers.push(obj);
@@ -104,13 +108,13 @@ setInterval(() => {
     fs.writeFileSync("data.json", JSON.stringify(searchedUsers));
 }, updateIntervalInHours * 1000 * 60 * 60);
 
-http.listen(7775, () => {
-    console.log("Server up and running on Port 7775");
+http.listen(process.env.PORT, () => {
+    console.log(`Server up and running on Port ${process.env.PORT}`);
 });
 
 //test run
 if(process.argv.includes("--test")) {
-    data = getData("Innecesari0", "2113", false);
+    data = getData("Innecesari0", "2113", false, false);
     setTimeout(() => {
         console.log(data.name == undefined ? "Cannot fetch data, something is wrong!" : "Fetched Data for: "+data.name+" - Everything is working fine!");
         process.exit(data.name == undefined ? 1 : 0);

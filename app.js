@@ -120,9 +120,3 @@ if(process.argv.includes("--test")) {
         process.exit(data.name == undefined ? 1 : 0);
     }, 5000);
 }
-
-function fixList () {
-    searchedUsers.forEach(e => {
-        e.name = e.name.toLowerCase();
-    });
-}

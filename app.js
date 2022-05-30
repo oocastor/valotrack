@@ -16,7 +16,7 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/public'));
 
-adminTkn = "temp";
+adminTkn = process.env.PASSWORD;
 updateIntervalInHours = 3;
 searchedUsers = [];
 

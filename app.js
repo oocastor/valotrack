@@ -114,9 +114,11 @@ http.listen(process.env.PORT, () => {
 
 //test run
 if(process.argv.includes("--test")) {
-    data = getData("Innecesari0", "2113", false, false);
-    setTimeout(() => {
-        console.log(data.name == undefined ? "Cannot fetch data, something is wrong!" : "Fetched Data for: "+data.name+" - Everything is working fine!");
-        process.exit(data.name == undefined ? 1 : 0);
-    }, 5000);
+    test();
+}
+
+async function test () {
+    data = await getData("Innecesari0", "2113", false, false);
+    console.log(data.name == undefined ? "Cannot fetch data, something is wrong!" : "Fetched Data for: "+data.name+" - Everything is working fine!");
+    process.exit(data.name == undefined ? 1 : 0);
 }
